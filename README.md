@@ -1,5 +1,5 @@
 # Automated-ACMESharp
-Powershell script that can be used to automate installation of <a href="http://letsencrypt.org/">letsencrypt.org</a> certificates using <a href="https://github.com/ebekker/ACMESharp">ACMESharp</a>
+Powershell script that can be used to automate installation of <a href="http://letsencrypt.org/">letsencrypt.org</a> certificates using <a href="https://github.com/ebekker/ACMESharp">ACMESharp</a> for Windows IIS.
 
 ---
 Do you want to just have your single server update it's own free certificates using Let's Encrypt?  Download <a href="https://github.com/michaelmcdaniel/Automated-ACMESharp/raw/master/RenewCertificate.ps1">RenewCertificate.ps1</a> 
