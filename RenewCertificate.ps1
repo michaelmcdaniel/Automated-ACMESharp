@@ -43,17 +43,20 @@ start-sleep 4  # sleep - had problems just running flat
 #Write-Host "Submitting Challenge`: dns`: $dns Alias`: $alias Site`: $site"
 $void = Submit-ACMEChallenge $alias -ChallengeType http-01
 $san = @()
+start-sleep 2  # sleep - had problems just running flat
 
 # request SAN names / dns slias list
 for($i = 0; $i -lt $aliases.Count; $i++) {
 	$cindex = $i + 1
 	$cname = $aliases[$i]
 	$calias = "$cname$cindex`_$now"
-    Write-Host "Creating new identifier`: dns`: $cname Alias`: $calias Site`: $site"
+    	Write-Host "Creating new identifier`: dns`: $cname Alias`: $calias Site`: $site"
 	$void = New-ACMEIdentifier -Dns $cname -Alias $calias
 	$void = Complete-ACMEChallenge $calias -ChallengeType http-01 -Handler iis -HandlerParameters @{ WebSiteRef = $site }
-    start-sleep 2
+    	start-sleep 2
 	$void = Submit-ACMEChallenge $calias -ChallengeType http-01
+	start-sleep 2  # sleep - had problems just running flat
+
 	$san += $calias
 	$check += $calias
 }
@@ -68,7 +71,9 @@ for($i = 0; $i -lt $check.Count; $i++) {
   try {
     write-host ("checking status: " + $check[$i])
     while((isValid $check[$i]) -eq $false) { 
-        start-sleep -seconds 5 
+	start-sleep -seconds 3 
+        $void = update-acmeidentifier $alias
+        start-sleep -seconds 2 
         write-host ("checking status: " + $check[$i])
     }
   } catch { 
